@@ -42,24 +42,24 @@ function ajax(url, funcSucc, funcFail){
 function ajax(url) {
   return new Promise(function(resolve,reject){
     const handler = function(){
-			if (this.readyState!==4) {
-				return;
-			}
-			if (this.status === 200) {
-				resolve(this.response);
-			} else {
-				reject(new Error(this.statusText));
-			}
-		};
-		const client = null;
-		if (window.XMLHttpRequest) {
-			client = new XMLHttpRequest();
-		} else{
-			client = new ActiveXObject("Microsoft.XMLHTTP")
-		}
-		client.open('GET',url);
-		client.onreadystatechange = handler;
-		client.send();
-	});
+      if (this.readyState!==4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    };
+    const client = null;
+    if (window.XMLHttpRequest) {
+      client = new XMLHttpRequest();
+    } else{
+      client = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    client.open('GET',url);
+    client.onreadystatechange = handler;
+    client.send();
+  });
 }
 ```
