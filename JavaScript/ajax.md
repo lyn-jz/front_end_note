@@ -40,8 +40,8 @@ function ajax(url, funcSucc, funcFail){
 ### 使用promise封装ajax
 ```
 function ajax(url) {
-	return new Promise(function(resolve,reject){
-		const handler = function(){
+  return new Promise(function(resolve,reject){
+    const handler = function(){
 			if (this.readyState!==4) {
 				return;
 			}
