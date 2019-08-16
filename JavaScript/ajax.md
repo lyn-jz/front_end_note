@@ -19,23 +19,21 @@ AJAX 最大的优点是在不重新加载整个页面的情况下，可以与服
 ### 写一个ajax函数
 ```
 function ajax(url, funcSucc, funcFail){
-	var xmlhttp = null;
-	if(window.XMLHttpRequest){
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		// IE6, IE5
-	}
-	xmlhttp.open('GET',url,true);
-	xmlhttp.send();
-	xmlhttp.onreadystatechange = function(){
-		if(xmlhttp.readyState == 4 )
-			{
-				if(xmlhttp.status == 200)
-					funcSucc(xmlhttp.responseText);
-				else  if(funcFail) funcFail();
-			}
-	}
+  var xmlhttp = null;
+  if(window.XMLHttpRequest){
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); // IE6, IE5
+  }
+  xmlhttp.open('GET',url,true);
+  xmlhttp.send();
+  xmlhttp.onreadystatechange = function(){
+    if (xmlhttp.readyState == 4 ) {
+      if(xmlhttp.status == 200)
+        funcSucc(xmlhttp.responseText);
+      else  if(funcFail) funcFail();
+    }
+  }
 }
 ```
 
