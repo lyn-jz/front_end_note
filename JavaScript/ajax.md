@@ -51,15 +51,15 @@ function ajax(url) {
         reject(new Error(this.statusText));
       }
     };
-    const client = null;
+    const xmlhttp = null;
     if (window.XMLHttpRequest) {
-      client = new XMLHttpRequest();
+      xmlhttp = new XMLHttpRequest();
     } else{
-      client = new ActiveXObject("Microsoft.XMLHTTP")
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
     }
-    client.open('GET',url);
-    client.onreadystatechange = handler;
-    client.send();
+    xmlhttp.open('GET',url);
+    xmlhttp.onreadystatechange = handler;
+    xmlhttp.send();
   });
 }
 ```
