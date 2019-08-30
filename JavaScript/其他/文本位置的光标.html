@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+  <script>
+function getTxt1CursorPosition(){
+            var $input = document.getElementById("input1");
+            var cursurPosition=0;
+            if($input.selectionStart){//非IE
+                cursurPosition= $input.selectionStart;
+            }else{//IE
+                try{
+                var range = document.selection.createRange();
+                range.moveStart("character",-$input.value.length);
+                cursurPosition=range.text.length;
+                }catch(e){
+                 cursurPosition = 0;
+                }
+            }
+            alert(cursurPosition);//打印当前索引
+        }
+</script>
+<input type="text" id="input1" value="10000" onclick="getTxt1CursorPosition()">
+ </body>
+</html>

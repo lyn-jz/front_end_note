@@ -34,8 +34,8 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Obj
 
 ### 实现双向绑定 Proxy 与 Object.defineProperty 相比优劣如何?
 - Object.defineProperty 的作用是劫持一个对象的属性，劫持属性的getter和setter方法，在对象的属性发生变化时进行特定的操作。而 Proxy 劫持的是整个对象。
-- Proxy 会返回一个代理对象，我们只需要操作新对象即可，而 Object.defineProperty  只能遍历对象属性直接修改。
-- Object.defineProperty 不支持数组，更准确的说是不支持数组的各种API，因为如果仅仅考虑arry[i] = value 这种情况，是可以劫持的，但是这种劫持意义不大。而 Proxy 可以支持数组的各种API。
+- Proxy 会返回一个代理对象，我们只需要操作新对象即可，而 Object.defineProperty 只能遍历对象属性直接修改。
+- Object.defineProperty不支持数组，更准确的说是不支持数组的各种API，因为如果仅仅考虑arry[i] = value 这种情况，是可以劫持的，但是这种劫持意义不大。而 Proxy 可以支持数组的各种API。
 - 尽管 Object.defineProperty 有诸多缺陷，但是其兼容性要好于 Proxy.
 
 ### 怎么自定义指令
@@ -63,3 +63,7 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Obj
 3. vuex
 4. $attrs/$listeners，$attrs存放父组件中绑定的非props属性，$listeners存放父组件中绑定的非原生事件,用于跨层级组件通信
 5. $parent/$children与ref：在子组件上使用ref属性，则可以通过this.$ref.属性名访问子组件的数据，$parent/$children：访问父、子实例
+
+### mvvm
+
+	在 MVVM 框架中，View(视图) 和 Modal(数据) 是不可以直接通讯的，在它们之间存在着ViewModal这个中间介充当着观察者的角色。当用户操作 View(视图)，ViewModal 感知到变化，然后通知 Modal 发生相应改变；反之当 Modal(数据) 发生改变，ViewModal 也能感知到变化，使 View 作出相应更新。这个一来一回的过程就是我们所熟知的双向绑定。

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cssText2</title>
+	<style type="text/css">
+		#container4 {									
+			float: left;
+			width: 100%;
+			background: green;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		#container3 {									
+			float: left;
+			width: 100%;
+			background: #B2F0F9;
+			position: relative;
+			right: 20%;/*此值等于col4的宽度*/
+		}
+		
+		#container2 {									
+			float: left;
+			width: 100%;
+			background: #89FFA2;
+			position: relative;
+			right: 30%;/*此值等于col3的宽度*/
+		}
+		
+		#container1 {									
+			float: left;
+			width: 100%;
+			background: #369;
+			position: relative;
+			right: 30%;/*此值等于col2的宽度*/
+		}
+		
+		#col1 {									
+			width: 18%;/*1%的padding*/
+			float: left;
+			position: relative;
+			left: 81%;
+			overflow: hidden;
+		}
+		
+		#col2 {									
+			float: left;
+			width: 28%;
+			position: relative;
+			left: 83%;
+			overflow: hidden;
+		}
+		
+		#col3 {									
+			float: left;
+			width: 28%;
+			position: relative;
+			left: 85%;
+			overflow: hidden;
+		}
+		
+		#col4 {									
+			float: left;
+			width: 18%;
+			position: relative;
+			left: 87%;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+<div id="container4">
+	<div id="container3">
+		<div id="container2">
+			<div id="container1">
+				<div id="col1">col1</div>
+				<div id="col2">col2</div>
+				<div id="col3">col3</div>
+				<div id="col4">col4</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
