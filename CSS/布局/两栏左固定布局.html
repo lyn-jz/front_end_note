@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两栏布局</title>
+  <style>
+    .box {
+      margin: 10px;
+      overflow: hidden;
+    }
+
+    .left {
+      width: 300px;
+      background-color: aqua;
+    }
+
+    .right {
+      background-color: pink;
+    }
+
+    .float-box .left {
+      float: left;
+    }
+
+    .float-box .right {
+      overflow: hidden;
+    }
+
+    .position-box {
+      position: relative;
+    }
+
+    .position-box .left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .position-box .right {
+      margin-left: 300px;
+    }
+
+    .table-box .left {
+      min-width: 300px;
+      display: table-cell;
+    }
+
+    .table-box .right {
+      width: 100%;
+      display: table-cell;
+    }
+
+    .flex-box {
+      display: flex;
+    }
+
+    .flex-box .right {
+      flex: 1;
+    }
+
+    .grid-box {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box float-box">
+    <div class="left">
+      <div>left</div>
+      <div>left</div>
+    </div>
+    <div class="right">
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+    </div>
+  </div>
+
+  <div class="box position-box">
+    <div class="left">
+      <div>left</div>
+      <div>left</div>
+    </div>
+    <div class="right">
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+    </div>
+  </div>
+
+  <div class="box table-box">
+    <div class="left">
+      <div>left</div>
+      <div>left</div>
+    </div>
+    <div class="right">
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+    </div>
+  </div>
+
+  <div class="box flex-box">
+    <div class="left">
+      <div>left</div>
+      <div>left</div>
+    </div>
+    <div class="right">
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+    </div>
+  </div>
+
+  <div class="box grid-box">
+    <div class="left">
+      <div>left</div>
+      <div>left</div>
+    </div>
+    <div class="right">
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+      <div>right</div>
+    </div>
+  </div>
+</body>
+
+</html>

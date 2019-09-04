@@ -1,95 +1,106 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title></title>
-    <style type="text/css">
-        .box {
-    --columns: 4;
-    --margins: calc(24px / var(--columns));
-    --space: calc(4px * var(--columns));
-    --fontSize: calc(20px - 4 / var(--columns));
-}
-.box {
-    width: 50%;
-    min-width: 320px;
-    margin: auto;
-    overflow: hidden;
-}
-.cell {
-    width: calc((100% - var(--margins) * var(--columns) * 2) / var(--columns));
-    margin: var(--margins);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-    background-color: #f0f3f9;
-    float: left;
-}
-.cell-header {
-    background: currentColor;    
-}
-.cell-title {
-    color: #fff;
-    padding: var(--space);
-    font-size: var(--fontSize);
-}
-.cell-content {
-    height: 150px;
-    padding: var(--space);
-    font-size: var(--fontSize);
-}
-@media screen and (max-width: 1200px) {
+  <title></title>
+  <style type="text/css">
     .box {
+      --columns: 4;
+      --margins: calc(24px / var(--columns));
+      --space: calc(4px * var(--columns));
+      --fontSize: calc(20px - 4 / var(--columns));
+    }
+
+    .box {
+      width: 50%;
+      min-width: 320px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .cell {
+      width: calc((100% - var(--margins) * var(--columns) * 2) / var(--columns));
+      margin: var(--margins);
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+      background-color: #f0f3f9;
+      float: left;
+    }
+
+    .cell-header {
+      background: currentColor;
+    }
+
+    .cell-title {
+      color: #fff;
+      padding: var(--space);
+      font-size: var(--fontSize);
+    }
+
+    .cell-content {
+      height: 150px;
+      padding: var(--space);
+      font-size: var(--fontSize);
+    }
+
+    @media screen and (max-width: 1200px) {
+      .box {
         --columns: 3;
+      }
     }
-}
-@media screen and (max-width: 900px) {
-    .box {
+
+    @media screen and (max-width: 900px) {
+      .box {
         --columns: 2;
+      }
     }
-}
-@media screen and (max-width: 600px) {
-    .box {
+
+    @media screen and (max-width: 600px) {
+      .box {
         --columns: 1;
+      }
     }
-}
-    </style>
+  </style>
 </head>
+
 <body>
-<div class="box">
+  <div class="box">
     <div class="cell" style="color: #F44336;">
-        <header class="cell-header">
-          <div class="cell-title">红色</div>
-        </header>
-        <main class="cell-content">改变浏览器的宽度</main>
-      </div>
-      <div class="cell" style="color: #E91E63;">
-        <header class="cell-header">
-          <div class="cell-title">粉色</div>
-        </header>
-        <main class="cell-content">会看到布局发生了变化</main>
-      </div>
-      <div class="cell" style="color: #9C27B0;">
-        <header class="cell-header">
-          <div class="cell-title">紫色</div>
-        </header>
-        <main class="cell-content">仅仅是通过CSS改变一个变量值实现</main>
-      </div>
-      <div class="cell" style="color: #00BCD4;">
-        <header class="cell-header">
-          <div class="cell-title">青色</div>
-        </header>
-        <main class="cell-content">这比传统的响应式处理要更省代码更好维护</main>
-      </div>
-      <div class="cell" style="color: #009688;">
-        <header class="cell-header">
-          <div class="cell-title">茶色</div>
-        </header>
-        <main class="cell-content">本例子主要为了演示响应式与变化效果</main>
-      </div>
-      <div class="cell" style="color: #4CAF50;">
-        <header class="cell-header">
-          <div class="cell-title">绿色</div>
-        </header>
-        <main class="cell-content">所以，至于布局变化细节是否合理就不用在意了。</main>
+      <header class="cell-header">
+        <div class="cell-title">红色</div>
+      </header>
+      <main class="cell-content">改变浏览器的宽度</main>
     </div>
-</div>
+    <div class="cell" style="color: #E91E63;">
+      <header class="cell-header">
+        <div class="cell-title">粉色</div>
+      </header>
+      <main class="cell-content">会看到布局发生了变化</main>
+    </div>
+    <div class="cell" style="color: #9C27B0;">
+      <header class="cell-header">
+        <div class="cell-title">紫色</div>
+      </header>
+      <main class="cell-content">仅仅是通过CSS改变一个变量值实现</main>
+    </div>
+    <div class="cell" style="color: #00BCD4;">
+      <header class="cell-header">
+        <div class="cell-title">青色</div>
+      </header>
+      <main class="cell-content">这比传统的响应式处理要更省代码更好维护</main>
+    </div>
+    <div class="cell" style="color: #009688;">
+      <header class="cell-header">
+        <div class="cell-title">茶色</div>
+      </header>
+      <main class="cell-content">本例子主要为了演示响应式与变化效果</main>
+    </div>
+    <div class="cell" style="color: #4CAF50;">
+      <header class="cell-header">
+        <div class="cell-title">绿色</div>
+      </header>
+      <main class="cell-content">所以，至于布局变化细节是否合理就不用在意了。</main>
+    </div>
+  </div>
 </body>
+
 </html>

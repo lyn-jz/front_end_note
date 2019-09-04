@@ -81,21 +81,21 @@
 
 ### 伸缩布局
 - 父元素属性: justify-content/align-items/align-content/flex-direction/flex-wrap/flex-flow
-  - display:flex;子元素都会自动的变成伸缩项
-  - justify-content: 主轴方向子元素对齐方式(flex-start左对齐|flex-end右对齐|center|space-between两端对齐，项目间隔相等|space-around每个元素周围分配相同的空间|space-evenly每个元素之间的间隔相等)
-  - align-items: 侧轴方向子元素对齐方式(flex-start|flex-end|center|baseline第一行文字的基线对齐|stretch)
-  - align-content: 多根轴线的对齐方式(flex-start|flex-end|center|space-between|space-around|space-evenly|stretch轴线占满整个交叉轴)
-  - flex-direction: 定义子元素排列方向/主轴(row|row-reverse|column|column-reverse)
-  - flex-wrap: 控制元素在一条轴线排不下时如何换行(nowrap|wrap|wrap-reverse第一行在下方)
-  - flex-flow: flex-direction flex-wrap的简写
+  - `display:flex;`子元素都会自动的变成伸缩项
+  - `justify-content`: 主轴方向子元素对齐方式(flex-start左对齐|flex-end右对齐|center|space-between两端对齐，项目间隔相等|space-around每个元素周围分配相同的空间|space-evenly每个元素之间的间隔相等)
+  - `align-items`: 侧轴方向子元素对齐方式(flex-start|flex-end|center|baseline第一行文字的基线对齐|stretch)
+  - `align-content`: 多根轴线的对齐方式(flex-start|flex-end|center|space-between|space-around|space-evenly|stretch轴线占满整个交叉轴)
+  - `flex-direction`: 定义子元素排列方向/主轴(row|row-reverse|column|column-reverse)
+  - `flex-wrap`: 控制元素在一条轴线排不下时如何换行(nowrap|wrap|wrap-reverse第一行在下方)
+  - `flex-flow`: flex-direction flex-wrap的简写
 
 - 子元素属性: flex/flex-grow/flex-shrink/flex-basis/order/align-self
-  - flex: flex-grow flex-shrink flex-basis的简写,默认值为 0 1 auto
-  - flex-grow: 定义项目的放大比例,默认值是0,保持CSS设定尺寸。设置后平分剩余空间,加在css设定尺寸上。
-  - flex-shrink: 定义了项目的缩小比例,默认值是1,一起缩小,设为0则保持CSS设定,设置后平分溢出部分,减在CSS设定尺寸上
-  - flex-basis: 定义了在分配多余空间之前，项目占据的主轴空间。
-  - order: 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
-  - align-self: 允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
+  - `flex`: flex-grow flex-shrink flex-basis的简写,默认值为 0 1 auto
+  - `flex-grow`: 定义项目的放大比例,默认值是0,保持CSS设定尺寸。设置后平分剩余空间,加在css设定尺寸上。
+  - `flex-shrink`: 定义了项目的缩小比例,默认值是1,一起缩小,设为0则保持CSS设定,设置后平分溢出部分,减在CSS设定尺寸上
+  - `flex-basis`: 定义了在分配多余空间之前，项目占据的主轴空间。
+  - `order`: 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+  - `align-self`: 单个项目对齐方式，可覆盖align-items属性。
 
 ### 媒体查询
 
