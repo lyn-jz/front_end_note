@@ -1,10 +1,5 @@
-## 虚拟dom，如何生成虚拟dom
-## 双向绑定原理
 ## data的对象新增属性有响应式吗
-没有
-
-## 双向绑定的原理，object.defineprototy里当对象get时，做什么处理？
-调用当前key对应的订阅器的depend方法，将订阅器添加到订阅目标的数组中，并将订阅目标加入订阅者。假如当前值是对象，则遍历对象属性，重复前面的步骤进行订阅；假如当前值为数组，则为每个元素重复前面的步骤进行订阅。
+没有。需要响应的话必须使用Vue.set(target, propertyName/index, value)、或者改变对象的值。
 
 ## Vue有render函数吗？有的话，render函数做了哪些处理
 patch
@@ -24,7 +19,7 @@ patch
 - 销毁前/后（beforeDestroy/destroy）：
 	- 在执行destroy方法后，对data的改变不会再触发周期函数，说明此时vue实例已经解除了事件监听以及和dom的绑定，但是dom结构依然存在。
 
-### Virtual Dom
+### Virtual Dom，怎么实现虚拟Dom
 
 Virtual Dom是JS对象结构表示的DOM树的结构。
 
@@ -36,10 +31,13 @@ vDom算法使用树的深度遍历。在遍历时，会给每个节点添加索�
 - 最后根据得出的差异进行局部更新
 
 ### 实现双向绑定
+vue.js 是采用数据劫持结合发布者-订阅者模式的方式实现双向绑定，具体步骤是：  
+1. 首先设置一个监听器 Observe 来监听所有属性。也就是深度遍历所有属性值，使用`Object.defineProperty()`劫持属性对应的 setter 和 getter 。
+2. 对于每个属性，都有一个消息订阅器Dep，用来收集订阅者Watcher，并且在Observe和Watcher之间进行统一管理。在属性的 getter 中调用`dep.depend()`，添加订阅者Watcher；setter中调用`dep.notify()`，通知订阅者数据属性改变，以做出更新。
+3. 除此之外还有一个指令解析器Complie，对每个节点进行扫描和解析，将相关指令初始化为一个订阅者Watcher，并替换模板数据或绑定响应的函数。当订阅者Watcher接收到相应属性的变化时会执行对应的更新函数，从而更新视图。
 
-vue.js 是采用数据劫持结合发布者-订阅者模式的方式实现双向绑定，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。具体步骤：
-- 对观察的数据进行递归遍历，修改setter和getter，当对象的某个属性值修改的时候，就会触发setter，也就能监听到数据的变化
-- 编译解析模板指令时，将模板中的变量替换成数据，再初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变化，收到通知，更新视图
+## object.defineprototy里当对象get时，做什么处理？
+收集依赖：调用当前key对应的订阅器的depend方法，将订阅器添加到订阅目标的数组中，并将订阅目标加入订阅者。假如当前值是对象，则遍历对象属性，重复前面的步骤进行订阅；假如当前值为数组，则为每个元素重复前面的步骤进行订阅。
 
 ### 实现双向绑定 Proxy 与 Object.defineProperty 相比优劣如何?
 - Object.defineProperty 的作用是劫持一个对象的属性，劫持属性的getter和setter方法，在对象的属性发生变化时进行特定的操作。而 Proxy 劫持的是整个对象。
