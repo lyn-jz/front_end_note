@@ -1,10 +1,10 @@
-## data的对象新增属性有响应式吗
+### data的对象新增属性有响应式吗
 没有。需要响应的话必须使用Vue.set(target, propertyName/index, value)、或者改变对象的值。
 
-## Vue有render函数吗？有的话，render函数做了哪些处理
+### Vue有render函数吗？有的话，render函数做了哪些处理
 patch
 
-## Vue能实现ssr的根本原因是什么？
+### Vue能实现ssr的根本原因是什么？
 使用虚拟dom
 
 ### vue生命周期的理解
@@ -33,11 +33,11 @@ vDom算法使用树的深度遍历。在遍历时，会给每个节点添加索�
 ### 实现双向绑定
 vue.js 是采用数据劫持结合发布者-订阅者模式的方式实现双向绑定，具体步骤是：  
 1. 首先设置一个监听器 Observe 来监听所有属性。也就是深度遍历所有属性值，使用`Object.defineProperty()`劫持属性对应的 setter 和 getter 。
-2. 对于每个属性，都有一个消息订阅器Dep，用来收集订阅者Watcher，并且在Observe和Watcher之间进行统一管理。在属性的 getter 中调用`dep.depend()`，添加订阅者Watcher；setter中调用`dep.notify()`，通知订阅者数据属性改变，以做出更新。
-3. 除此之外还有一个指令解析器Complie，对每个节点进行扫描和解析，将相关指令初始化为一个订阅者Watcher，并替换模板数据或绑定响应的函数。当订阅者Watcher接收到相应属性的变化时会执行对应的更新函数，从而更新视图。
+2. 对于每个属性，都有一个消息订阅器Dep，用来收集订阅者Watcher，并且在 Observe 和 Watcher 之间进行统一管理。在属性的 getter 中调用`dep.depend()`，收集依赖；setter 中调用`dep.notify()`，通知订阅者数据属性改变，以做出更新。
+3. 除此之外还有一个指令解析器 Complie ，对每个节点进行扫描和解析，将相关指令初始化为一个订阅者 Watcher ，并替换模板数据或绑定响应的函数。当订阅者 Watcher 接收到相应属性的变化时会执行对应的更新函数，从而更新视图。
 
-## object.defineprototy里当对象get时，做什么处理？
-收集依赖：调用当前key对应的订阅器的depend方法，将订阅器添加到订阅目标的数组中，并将订阅目标加入订阅者。假如当前值是对象，则遍历对象属性，重复前面的步骤进行订阅；假如当前值为数组，则为每个元素重复前面的步骤进行订阅。
+### object.defineprototy里当对象get时，做什么处理？
+收集依赖：调用当前key对应的订阅器的depend方法，收集依赖。假如当前值是对象，则遍历对象属性，重复前面的步骤收集依赖；假如当前值为数组，则为每个元素重复前面的步骤收集依赖。
 
 ### 实现双向绑定 Proxy 与 Object.defineProperty 相比优劣如何?
 - Object.defineProperty 的作用是劫持一个对象的属性，劫持属性的getter和setter方法，在对象的属性发生变化时进行特定的操作。而 Proxy 劫持的是整个对象。
@@ -79,3 +79,6 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式实现双向
 
   Vue组件接收交互行为，调用dispatch方法触发action相关处理，若页面状态需要改变，则调用commit方法提交mutation修改state，通过getters获取到state新值，重新渲染Vue Components，界面随之更新。
 
+----
+参考：  
+[vue 的双向绑定原理及实现](https://www.cnblogs.com/canfoo/p/6891868.html)
