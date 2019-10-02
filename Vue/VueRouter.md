@@ -10,7 +10,7 @@
 
 ## 导航解析流程
 1. 导航被触发。
-1. 在失活的组件里调用离开守卫。
+1. 在失活的组件里调用离开守卫 beforeRouteLeave 。
 1. 调用全局的 beforeEach 守卫。
 1. 在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
 1. 在路由配置里调用 beforeEnter。
@@ -25,6 +25,10 @@
 ### hash模式和history模式区别
 - hash通过使用#号来改变URL并且不用发送请求，是开发时默认的模式。一般通过监听onhashchange事件来知道哈希值的变化也就是URL的变化，然后可以加载对应的模块来响应。这个是比较传统的方法，兼容性比较好，回车刷新也可以加载对应页面。
 - history模式的URL比较规范，不包含#号，和一般的URL一样。一般是通过pushState与replaceState替换URL。这个是h5的方法，兼容性相对差一点，在二级页面刷新会返回404，需要后端配置一下重定向。
+
+### vue Router原理
+在vueRouter的install函数中使用Vue.mixin，在beforeCreate的周期进行初始化：如果使用hash模式，就监听hashchange事件，在哈希值改变和初次加载的时候，调用路由守卫，然后根据结果看是否要加载对应的组件，改变 router-view 组件的内容。
+
 
 ---
 参考：  
