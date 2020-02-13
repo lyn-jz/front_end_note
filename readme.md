@@ -9,8 +9,14 @@
 ## JavaScript
 - [数据](./JavaScript/数据&作用域&内存.md#数据)
 - [作用域](./JavaScript/数据&作用域&内存.md#作用域)
-- [内存](./JavaScript/数据&作用域&内存.md#数据)
+- [内存](./JavaScript/数据&作用域&内存.md#内存)
+- [原型](./JavaScript/原型.md)
 - [ajax](./JavaScript/ajax.md)
+- [ES6新特性](./JavaScript/ES6.md)
+- [源码实现](./JavaScript/源码实现.md)
+- [框架](./JavaScript/框架.md)
+- [编程题](./JavaScript/编程题.md)
+- [其他](./JavaScript/其他.md)
 
 ## Vue
 - [Vue](./Vue/Vue.md)
