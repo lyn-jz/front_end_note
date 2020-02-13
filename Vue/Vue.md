@@ -36,7 +36,7 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式实现双向
 2. 对于每个属性，都有一个消息订阅器Dep，用来收集订阅者Watcher，并且在 Observe 和 Watcher 之间进行统一管理。在属性的 getter 中调用`dep.depend()`，收集依赖；setter 中调用`dep.notify()`，通知订阅者数据属性改变，以做出更新。
 3. 除此之外还有一个指令解析器 Complie ，对每个节点进行扫描和解析，将相关指令初始化为一个订阅者 Watcher ，并替换模板数据或绑定响应的函数。当订阅者 Watcher 接收到相应属性的变化时会执行对应的更新函数，从而更新视图。
 
-### object.defineprototy里当对象get时，做什么处理？
+### object.defineProperty 里当对象get时，做什么处理？
 收集依赖：调用当前key对应的订阅器的depend方法，收集依赖。假如当前值是对象，则遍历对象属性，重复前面的步骤收集依赖；假如当前值为数组，则为每个元素重复前面的步骤收集依赖。
 
 ### 实现双向绑定 Proxy 与 Object.defineProperty 相比优劣如何?
@@ -73,7 +73,7 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式实现双向
 
 ### mvvm
 
-	在 MVVM 框架中，View(视图) 和 Modal(数据) 是不可以直接通讯的，在它们之间存在着ViewModal这个中间介充当着观察者的角色。当用户操作 View(视图)，ViewModal 感知到变化，然后通知 Modal 发生相应改变；反之当 Modal(数据) 发生改变，ViewModal 也能感知到变化，使 View 作出相应更新。这个一来一回的过程就是我们所熟知的双向绑定。
+在 MVVM 框架中，View(视图) 和 Modal(数据) 是不可以直接通讯的，在它们之间存在着ViewModal这个中间介充当着观察者的角色。当用户操作 View(视图)，ViewModal 感知到变化，然后通知 Modal 发生相应改变；反之当 Modal(数据) 发生改变，ViewModal 也能感知到变化，使 View 作出相应更新。这个一来一回的过程就是我们所熟知的双向绑定。
 
 ### Vuex的数据流向
 
