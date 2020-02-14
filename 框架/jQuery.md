@@ -24,7 +24,7 @@
 `$("[href!='a.jpg'][href$='.jpg']") `选取所有带有href值不等于"a.jpg"且以".jpg"结尾的元素。
 
 ### jQuery 名称冲突
-jQuery.noConflict()方法：使用：`var jq=jQuery.noConflict()`，帮助您使用自己的名称（比如 jq）来代替 \$ 符号。
+jQuery.noConflict()方法：使用：`var jq=jQuery.noConflict()`，可以用`jq`来代替`$`符号。
 
 ### jQuery常用方法
 
