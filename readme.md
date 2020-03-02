@@ -23,5 +23,6 @@
 - [webpack](./框架/webpack.md)
 - [jQuery](./框架/jQuery.md)
 
-## 错误
+## 其他
 - [错误](./other/错误.md)
+- [其他](./other/其他.md)
