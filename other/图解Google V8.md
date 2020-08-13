@@ -657,13 +657,36 @@ MutationObserver 和 IntersectionObserver 两个性质应该差不多。 Mutatio
 
 ---
 
-## 19. 
-### 
-### 
-### 
-### 
-### 
-### 
+## 19. 异步编程（二）：V8是如何实现async/await的？
+
+### 异步回调函数引发的问题
+回调地狱：打乱代码的逻辑，使得代码难以理解。
+
+### 解决回调地狱问题（前端异步编程的方案）
+1. 使用 Promise 函数
+    - 缺点：语义化不明显。当异步代码过多时，then方法过多，打断异步代码逻辑。
+2. 使用 Generator 函数
+    - 方案：执行到异步请求的时候，暂停当前函数，等异步请求返回了结果，再恢复该函数。
+    - 优点：配合 Promise 执行实现线性化逻辑
+    - 缺点：生成器依然需要使用执行器来驱动生成器函数的执行。
+3. async/await
+    - 优点：提供了在不阻塞主线程的情况下使用同步代码实现异步访问资源的能力。
+![](./images/图解GoogleV8/前端异步编程的方案.jpg)
+
+### V8 是怎么实现生成器函数的暂停执行和恢复执行的？
+使用协程。协程是一种比线程更加轻量级的存在。协程是跑在线程上的任务，一个线程上可以存在多个协程，但是在线程上同时只能执行一个协程。协程不是被操作系统内核所管理，而完全是由程序所控制。如果从 A 协程启动 B 协程，我们就把 A 协程称为 B 协程的父协程。
+
+### async/await
+- 定义：一个通过异步执行并隐式返回 Promise 作为结果的函数。
+- await 等待的表达式类型：
+    - 一个 Promise 对象的表达式；
+    - 任何普通表达式，将会被 V8 隐式包装成一个 resolve 状态的 Promise 对象。
+- 当 async 函数暂停时，恢复执行的时机：等待的 Promise 对象状态不为 Pending 时。
+
+### 思考：co 的运行原理是什么？
+co源码实现原理：其实就是通过不断的调用generator函数的next()函数，来达到自动执行generator函数的效果（类似async、await函数的自动自行）。
+
+## 20. 垃圾回收（一）：V8的两个垃圾回收器是如何工作的？
 ### 
 
 ```JavaScript
@@ -677,3 +700,4 @@ MutationObserver 和 IntersectionObserver 两个性质应该差不多。 Mutatio
 
 ## 拓展阅读
 [on-stack replacement in v8](https://wingolog.org/archives/2011/06/20/on-stack-replacement-in-v8)
+[学习 koa 源码的整体架构，浅析koa洋葱模型原理和co原理](https://juejin.im/post/6844904088220467213)
