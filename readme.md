@@ -25,4 +25,7 @@
 
 ## 其他
 - [错误](./other/错误.md)
+- [图解Google V8](./other/图解Google V8.md)
+- [设计模式](./other/设计模式.md)
+- [markdown](./other/markdown.md)
 - [其他](./other/其他.md)
