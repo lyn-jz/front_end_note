@@ -785,10 +785,64 @@ V8 最开始的垃圾回收器有两个特点，第一个是垃圾回收在主�
 
 ---
 
-```JavaScript
+## 22. 答疑：几种常见内存问题的解决策略
 
-```
-![](./images/图解GoogleV8/.jpg)
+### Node 的体系架构
+Node 是 V8 的宿主，它会给 V8 提供事件循环和消息队列。在 Node 中，事件循环是由 libuv 提供的，libuv 工作在主线程中，它会从消息队列中取出事件，并在主线程上执行事件。
+对于一些主线程上不适合处理的事件，比如消耗时间过久的网络资源下载、文件读写、设备访问等，Node 会提供很多线程来处理这些事件，我们把这些线程称为线程池。
+![](./images/图解GoogleV8/Node 的体系架构.jpg)
+
+### 异步 API 和同步 API 的底层差异(以 readFileSync 和 readFile 为例)
+- readFile：主线程会将 readFile 的文件名称和回调函数，提交给文件读写线程来处理。文件读写线程完成了文件读取之后，会将结果和回调函数封装成新的事件，并将其添加进消息队列中。等到 libuv 从消息队列中读取该事件后，主线程就会执行 readFile 设置的回调函数。
+- readFileSync：当 libuv 读取到 readFileSync 的任务后，就直接在主线程上执行读写操作，等待读写结束，直接返回读写的结果。
+
+### 几种内存问题
+- 内存泄漏 (Memory leak)，它会导致页面的性能越来越差；
+- 内存膨胀 (Memory bloat)，它会导致页面的性能会一直很差；
+- 频繁垃圾回收，它会导致页面出现延迟或者经常暂停。
+
+### 内存泄露
+- 成因：当进程不再需要某些内存的时候，这些不再被需要的内存依然没有被进程回收。
+- 举例：
+	- 函数中使用未定义的变量。如下代码所示，V8 会使用`this.变量`替换变量，当 this 指向 window 对象时，变量就被 window 对象引用了。可通过在文件头加上`use strict`解决。
+	```JavaScript
+		function foo() {
+			temp_array = new Array(200000)
+		}
+	```
+	- 闭包中引用父级函数中定义的不被需要的变量。可以将`temp_object.x`存储在新的变量中，避免`temp_object.array`被保留
+	```JavaScript
+	function foo(){  
+		var temp_object = new Object()
+		temp_object.x = 1
+		temp_object.array = new Array(200000)
+		return function(){
+			console.log(temp_object.x);
+		}
+	}
+	```
+	- detached 节点。只有同时满足 DOM 树和 JavaScript 代码都不引用某个 DOM 节点，该节点才会被作为垃圾进行回收。如果某个节点已从 DOM 树移除，但 JavaScript 仍然引用它，我们称此节点为 detached 。
+
+### 内存膨胀
+- 成因：程序员对内存管理不科学。比如只需要 50M 内存就可以搞定的，有些程序员却花费了 500M 内存。
+- 举例：没有充分地利用好缓存；载了一些不必要的资源。
+- 特点：内存在某一段时间内快速增长，然后达到一个平稳的峰值继续运行。
+- 解决方法：合理规划项目，充分利用缓存等技术来减轻项目中不必要的内存占用。
+
+### 频繁的垃圾回收
+- 成因：频繁使用大的临时变量，那么就会导致频繁垃圾回收。
+- 问题：页面卡顿。
+- 解决方法：将这些临时变量设置为全局变量。
+
+### 思考：在实际的项目中，你还遇到过哪些具体的内存问题呢？怎么解决的？
+1. Node.js v4.x ，BFF层服务端在js代码中写了一个lib模块做lfu、lru的缓存，用于针对后端返回的数据进行缓存。把内存当缓存用的时候，由于线上qps较大的时候，缓存模块被频繁调用，造成了明显的gc stw现象，外部表现就是node对上游http返回逐渐变慢。由于当时上游是nginx，且nginx设置了timeout retry，因此这个内存gc问题当node返回时间超出nginx timeout阈值时 进而引起了nginx大量retry，迅速形成雪崩效应。后来不再使用这样的当时，改为使用node服务器端本地文件+redis/memcache的缓存方案，node做bff层时 确实不适合做内存当缓存这种事。
+2. 
+	- 运行场景：K线行情列表
+	- 技术方案，websocket 推送二进制数据（2次/秒） -> 转换为 utf-8 格式 -> 检查数据是否相同 -> 渲染到 dom 中
+	出现问题：页面长时间运行后出现卡顿的现象
+	- 问题分析：将二进制数据转换为 utf-8 时，频繁触发了垃圾回收机制
+	- 解决方案：后端推送采取增量推送形式
+3. webview页面内存占用了400多M，加上app本身、系统的内存占用，1G内存的移动设备直接白屏。其中部分原因是用webaudio加载了十多个音乐文件，用canvas加载了几十张小图片。图片直接改成url用到的时候再加载到webgl中，声音文件按需加载，有了很大的缓解。
 
 ---
 ## 其他参考资料
@@ -799,4 +853,3 @@ V8 最开始的垃圾回收器有两个特点，第一个是垃圾回收在主�
 [学习 koa 源码的整体架构，浅析koa洋葱模型原理和co原理](https://juejin.im/post/6844904088220467213)
 [了解垃圾收集并解决Node.js中的内存泄漏](https://www.dynatrace.com/news/blog/understanding-garbage-collection-and-hunting-memory-leaks-in-node-js/)
 [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
-
