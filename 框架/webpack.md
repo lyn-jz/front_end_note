@@ -52,7 +52,18 @@ webpack是JavaScript的模块打包工具。通过分析模块之间的依赖，
 ### 工作流程
 1. 读取配置文件，按命令初始化配置参数，创建 Compiler 对象；
 2. 调用插件的 apply 方法挂载插件监听，然后从入口文件开始执行编译；
-3. 按文件类型，调用相应的 Loader 对模块进行编译，并在合适的时机点触发对应的事件，调用 Plugin 执行，最后再根据模块 依赖查找 到所依赖的模块，递归执行第三步；
+3. 按文件类型，调用相应的 Loader 对模块进行编译，并在合适的时机点触发对应的事件，调用 Plugin 执行，最后再根据模块 依赖查找到所依赖的模块，递归执行第三步；
 4. 将编译后的所有代码包装成一个个代码块 (Chuck)， 并按依赖和配置确定 输出内容。这个步骤，仍然可以通过 Plugin 进行文件的修改;
 5. 最后，根据 Output 把文件内容一一写入到指定的文件夹中，完成整个过程；
+
+### Webpack 性能优化
+1. 减少 Webpack 打包时间
+- 优化 Loader 文件搜索范围（如babel-loader，不处理node_module，编译过的文件缓存起来）
+- HappyPack：将 Loader 的同步执行转换为并行的
+- DllPlugin 可以将特定的类库提前打包然后引入。
+- 代码压缩：webpack4已经开启 UglifyJS 功能。
+2. 减少 Webpack 打包后的文件体积
+- 按需加载：大型类库、路由等
+- Scope Hoisting：启用 optimization.concatenateModules，把打包出来的模块合并到一个函数中去。
+- Tree Shaking：删除项目中未被引用的代码。不可使用commonJS，要将某些文件标记为副作用。
 
